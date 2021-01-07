@@ -1,0 +1,39 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container
+{
+    width: 1600px;
+    height: 800px;
+    background-image: url(./image/background.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-2
+{
+    width: 50%;
+    height: 100%;
+}
+
+.col-content
+{
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#updateGame
+{
+    width: 400px;
+    height: 80px;
+    font-size: 1.3rem;
+}
