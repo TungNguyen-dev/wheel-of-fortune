@@ -10,7 +10,22 @@
     <div class="container">
         <div class="col-2"><canvas id="wheeloffortune"></canvas></div>
         <div class="col-content col-2">
-            <button id="updateGame" onclick="updateGame();">VONG OI QUAY NAO</button>
+            <div class="newyear-img__wp">
+                <img src="./image/buffalo-icon.png" alt="" class="newyear-img">
+            </div>
+            <div class="game-content">
+                <h3 class="game-content__heading">Năm mới trao yêu thương, <span class="game-content__heading--yellow"> gửi khách ngàn quà tặng</span></h3>
+                <h4 class="game-content__content">Thử vận may bằng cách nhập số điện thoại của bạn để xoay vòng quay nhận mã ngay nào</h4>
+            </div>
+            <label for=""><input type="text" id="phoneNumber" placeholder="Nhập số điện thoại"></label>
+            <button id="updateGame" onclick="updateGame();">VÒNG ƠI QUAY NÀO!</button>
+            <div class="game-rule">
+                <h4 class="game-rule__text">
+                    Thể lệ chương trình: <br>
+                    Mỗi người chơi chỉ quay được 1 lần duy nhất! <br>
+                    Để sử dụng mã giảm, vui lòng copy code và dán mã ở bước thanh toán.
+                </h4>
+            </div>
         </div>
     </div>
     <script src="./main.js"></script>

@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+body
+{
+    color: white;
+}
+
 .container
 {
     width: 1600px;
@@ -12,8 +17,15 @@
     background-image: url(./image/background.png);
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: bottom;
     display: flex;
     flex-wrap: wrap;
+}
+
+.container::after
+{
+    content: '';
+    background-color: rgba(0, 0, 0, 1);
 }
 
 .col-2
@@ -31,9 +43,75 @@
     flex-wrap: wrap;
 }
 
+.newyear-img__wp
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.newyear-img
+{
+    width: 200px;
+    height: 200px;
+}
+
+.game-content
+{
+    width: 100%;
+    padding: 0 100px;
+}
+
+.game-content__heading
+{
+    font-size: 2.0rem;
+    font-weight: 500;
+    line-height: 3.0rem;
+    text-transform: uppercase;
+}
+
+.game-content__heading--yellow
+{
+    color: yellow;
+}
+
+.game-content__content
+{
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: 100;
+    line-height: 2.0rem;
+}
+
+#phoneNumber
+{
+    width: 500px;
+    height: 60px;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    text-align: left;
+}
+
 #updateGame
 {
-    width: 400px;
-    height: 80px;
+    width: 500px;
+    height: 60px;
+    border-radius: 10px;
     font-size: 1.3rem;
+    background-color: yellow;
+    color: red;
+}
+
+.game-rule
+{
+    width: 100%;
+    padding: 0 100px;
+}
+
+.game-rule__text
+{
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    font-weight: 100;
 }

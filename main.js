@@ -6,6 +6,13 @@ let lever;
 let rotation = (10 * Math.PI / 180);
 let friction = (Math.random() * (0.09 - 0.01) + 0.01) * (Math.PI / 180);
 let totalRotation = 0;
+let sound;
+let result = {
+    winners: [{
+        phone: '',
+        gift: ''
+    }]
+};
 
 // Game Area
 let GameArea = {
@@ -54,7 +61,7 @@ function GiftCode(index, text) {
     this.draw = function () {
         let ctx = GameArea.context;
         let angle = (index * 30 * Math.PI / 180) - (15 * Math.PI / 180) + this.spin;
-        ctx.font = 0.03 * GameArea.canvas.width + "px Arial";
+        ctx.font = 0.025 * GameArea.canvas.width + "px Arial";
         ctx.textBaseline = 'middle';
         ctx.save();
         ctx.rotate(angle);
@@ -80,10 +87,26 @@ function Lever() {
         ctx.drawImage(imageObj, this.x, this.y, this.width, this. height);
     }
 }
+function Sound(src) {
+    this.sound = document.createElement('audio');
+    this.sound.src = src;
+    this.sound.setAttribute('preload', 'auto');
+    this.sound.setAttribute('controls', 'none');
+    this.sound.style.display = 'none';
+    document.body.appendChild(this.sound);
+
+    this.play = function () {
+        this.sound.play();
+    }
+    this.stop = function () {
+        this.sound.pause();
+    }
+}
 
 // Start Game
 function startGame() {
     GameArea.start();
+    sound = new Sound('./sound/bg-sound.wav');
     wheel = new Wheel();
     giftCode.push(new GiftCode(1, "Discount 01%"));
     giftCode.push(new GiftCode(2, "Discount 02%"));
@@ -110,6 +133,7 @@ window.onload(startGame);
 // Update Game
 function updateGame() {
     animationID = requestAnimationFrame(updateGame);
+    sound.play();
     GameArea.clear();
     wheel.update();
     for (let i = 0; i < giftCode.length; i++) {
@@ -121,51 +145,74 @@ function updateGame() {
         rotation -= friction;
     } else {
         rotation = 0;
+        getPhoneNumber();
+        sound.stop();
         GameArea.stop();
+        alert(checkGiftCode().winners.phone + ' - ' + checkGiftCode().winners.gift);
+        exportData(checkGiftCode());
     }
-    console.log(checkGiftCode());
+}
+
+function getPhoneNumber() {
+    let phoneNumber = document.getElementById('phoneNumber').value;
+    result.winners.phone = phoneNumber;
 }
 
 function checkGiftCode() {
     let giftCodeIndex =  Math.floor(((totalRotation * 180 / Math.PI) % 360) / 30);
-    let result;
     switch (giftCodeIndex) {
         case 0:
-            result = giftCode[11];
+            result.winners.gift = giftCode[11].text;
             break;
         case 1:
-            result = giftCode[10];
+            result.winners.gift = giftCode[10].text;
             break;
         case 2:
-            result = giftCode[9];
+            result.winners.gift = giftCode[9].text;
             break;
         case 3:
-            result = giftCode[8];
+            result.winners.gift = giftCode[8].text;
             break;
         case 4:
-            result = giftCode[7];
+            result.winners.gift = giftCode[7].text;
             break;
         case 5:
-            result = giftCode[6];
+            result.winners.gift = giftCode[6].text;
             break;
         case 6:
-            result = giftCode[5];
+            result.winners.gift = giftCode[5].text;
             break;
         case 7:
-            result = giftCode[4];
+            result.winners.gift = giftCode[4].text;
             break;
         case 8:
-            result = giftCode[3];
+            result.winners.gift = giftCode[3].text;
             break;
         case 9:
-            result = giftCode[2];
+            result.winners.gift = giftCode[2].text;
             break;
         case 10:
-            result = giftCode[1];
+            result.winners.gift = giftCode[1].text;
             break;
         case 11:
-            result = giftCode[0];
+            result.winners.gift = giftCode[0].text;
             break;
     }
-    return result.text;
+    return result;
+}
+
+function exportData(result) {
+    let data = {
+        winners: [{
+            phone: result.winners.phone,
+            gift: result.winners.gift
+        }]
+    };
+    let nameFile = result.winners.phone + ".txt";
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type: "text/plain"}));
+    a.setAttribute("download", nameFile);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
